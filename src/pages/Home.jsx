@@ -79,7 +79,7 @@ export default function Home() {
                 color: 'var(--green-400)',
                 backdropFilter: 'blur(10px)',
               }}>
-                <Sparkles size={14} style={{ flexShrink: 0 }} />
+               
                 <span className="badge-text" style={{ whiteSpace: 'normal', lineHeight: 1.4 }}>Now with 3D Experience — Developed by Raja</span>
                 <ChevronRight size={14} style={{ flexShrink: 0 }} />
               </span>
