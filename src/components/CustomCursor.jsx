@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function CustomCursor() {
   const cursorRef = useRef(null);
@@ -6,11 +6,23 @@ export default function CustomCursor() {
   const pos = useRef({ x: 0, y: 0 });
   const followerPos = useRef({ x: 0, y: 0 });
   const raf = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    let isVisible = false;
+
+    if (window.innerWidth < 768) {
+      return () => {
+        window.removeEventListener('resize', checkMobile);
+      };
+    }
+
     const cursor = cursorRef.current;
     const follower = followerRef.current;
-    let isVisible = false;
 
     const onMove = (e) => {
       pos.current = { x: e.clientX, y: e.clientY };
@@ -67,8 +79,11 @@ export default function CustomCursor() {
       document.removeEventListener('mousedown', onMouseDown);
       document.removeEventListener('mouseup', onMouseUp);
       if (raf.current) cancelAnimationFrame(raf.current);
+      window.removeEventListener('resize', checkMobile);
     };
-  }, []);
+  }, [isMobile]);
+
+  if (isMobile) return null;
 
   return (
     <>
