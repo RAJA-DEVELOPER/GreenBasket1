@@ -83,25 +83,15 @@ export default function Admin() {
 
   return (
     <div className="page-enter" style={{ paddingTop: 90, minHeight: '100vh', background: 'var(--bg-primary)' }}>
-      <div style={{ display: 'flex', minHeight: 'calc(100vh - 90px)' }}>
+      <div className="admin-layout">
 
         {/* Sidebar */}
-        <aside style={{
-          width: 220,
-          flexShrink: 0,
-          borderRight: '1px solid var(--border-glass)',
-          padding: '32px 16px',
-          background: 'var(--bg-secondary)',
-          position: 'sticky',
-          top: 90,
-          height: 'calc(100vh - 90px)',
-          overflow: 'auto',
-        }}>
-          <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--text-dim)', marginBottom: 16, paddingLeft: 8 }}>
+        <aside className="admin-sidebar">
+          <p className="desktop-only" style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--text-dim)', marginBottom: 16, paddingLeft: 8 }}>
             Admin Panel
           </p>
 
-          <nav style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+          <nav>
             <button style={tabStyle('dashboard')} onClick={() => setTab('dashboard')}>
               <LayoutDashboard size={16} /> Dashboard
             </button>
@@ -110,7 +100,7 @@ export default function Admin() {
             </button>
           </nav>
 
-          <div style={{ marginTop: 'auto', paddingTop: 40 }}>
+          <div className="desktop-only" style={{ marginTop: 'auto', paddingTop: 40 }}>
             <div style={{
               padding: '16px',
               background: 'rgba(34,197,94,0.08)',
@@ -124,7 +114,7 @@ export default function Admin() {
         </aside>
 
         {/* Main content */}
-        <main style={{ flex: 1, padding: '32px', overflowX: 'hidden' }}>
+        <main className="admin-main">
 
           {/* Dashboard */}
           {tab === 'dashboard' && (
@@ -170,7 +160,8 @@ export default function Admin() {
               {/* Recent products table */}
               <div className="glass-card" style={{ padding: 24 }}>
                 <h3 style={{ fontWeight: 700, fontSize: 16, marginBottom: 20 }}>Recent Products</h3>
-                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                <div className="admin-table-wrapper">
+                  <table style={{ minWidth: 600, width: '100%', borderCollapse: 'collapse' }}>
                   <thead>
                     <tr>
                       {['Product', 'Category', 'Price', 'Stock', 'Rating'].map(h => (
@@ -194,7 +185,8 @@ export default function Admin() {
                       </tr>
                     ))}
                   </tbody>
-                </table>
+                  </table>
+                </div>
               </div>
             </motion.div>
           )}
@@ -311,7 +303,8 @@ export default function Admin() {
 
               {/* Products table */}
               <div className="glass-card" style={{ overflow: 'hidden' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                <div className="admin-table-wrapper">
+                  <table style={{ minWidth: 800, width: '100%', borderCollapse: 'collapse' }}>
                   <thead>
                     <tr style={{ borderBottom: '1px solid var(--border-glass)' }}>
                       {['Product', 'Category', 'Price', 'Stock', 'Rating', 'Actions'].map(h => (
@@ -374,7 +367,8 @@ export default function Admin() {
                       ))}
                     </AnimatePresence>
                   </tbody>
-                </table>
+                  </table>
+                </div>
               </div>
             </motion.div>
           )}
